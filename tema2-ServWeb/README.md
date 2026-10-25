@@ -29,3 +29,8 @@ Usuario → Internet → HTTPS 443 → EC2 (Ubuntu) → Nginx (proxy inverso, te
 ## Bonus: Let's Encrypt
     sudo ./enable-letsencrypt.sh DOMINIO EMAIL
     curl -Iv https://DOMINIO
+
+## Datos del despliegue
+   - IP pública (Elastic IP): 44.218.85.214
+   - Dominio (bonus): https://jmsdaw2.duckdns.org
+   - Certificado válido emitido por Let's Encrypt
