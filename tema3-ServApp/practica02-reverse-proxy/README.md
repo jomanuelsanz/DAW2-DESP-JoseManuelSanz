@@ -323,13 +323,14 @@ Comprobación: el acceso directo a Tomcat (`localhost:8080`) falla, mientras que
 
 Otras comprobaciones: red y DNS interno (`04`, `13`), diferencias de cabeceras (`10`, `11`, `12`), acceso controlado (`16`) y acceso directo bloqueado (`18`).
 
+---
+
+## Repositorio en GitHub después de terminar la práctica 2
 ![Repositorio en GitHub](capturas/20-github-repo.png)
 
 ---
 
 ## 5. Problemas encontrados
-
-> **Edita esta sección y deja solo los problemas que realmente te hayan ocurrido.**
 
 1. **Nginx no resolvía el nombre `practica01`** (`host not found in upstream`) y el contenedor se detenía.
 2. **Puerto 80 ocupado** en el equipo anfitrión.
