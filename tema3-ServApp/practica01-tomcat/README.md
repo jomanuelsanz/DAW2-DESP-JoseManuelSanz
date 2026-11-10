@@ -398,8 +398,6 @@ Comprobaciones realizadas: `docker ps` muestra el contenedor `practica01` con el
 
 ## 6. Problemas encontrados
 
-> **Edita esta sección con los problemas que realmente te hayan ocurrido.** Los siguientes son los habituales; deja solo los reales o sustitúyelos.
-
 1. **Error 404 al acceder a `http://localhost:8080`** tras arrancar el contenedor.
 2. **Docker no arrancado:** el comando `docker build` o `docker run` falla con *cannot connect to the Docker daemon*.
 3. **Conflicto de nombre del contenedor:** al repetir `docker run` aparece *name already in use*.
