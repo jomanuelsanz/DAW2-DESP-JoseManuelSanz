@@ -456,6 +456,7 @@ Práctica 3:   Cliente → Nginx → Gunicorn → Flask
 | Persistencia tras reinicio | `23-reinicio-contenedor.png`, `24-app-tras-reinicio.png` |
 | Logs generados | `25-logs-gunicorn.png`, `26-logs-nginx.png`, `21-systemd-autorestart.png` |
 
+## Repositorio en GitHub después de terminar la práctica 3
 ![Repositorio en GitHub](capturas/27-github-repo.png)
 
 ---
