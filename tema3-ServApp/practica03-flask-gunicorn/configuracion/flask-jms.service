@@ -1,0 +1,18 @@
+[Unit]
+Description=Gunicorn - Aplicacion Flask FlaskJMS (Jose Manuel Sanz)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/proyecto/aplicacion
+Environment="PYTHONDONTWRITEBYTECODE=1"
+LogsDirectory=gunicorn
+ExecStart=/opt/venv-jms/bin/gunicorn --config /proyecto/configuracion/gunicorn.conf.py app:app
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
