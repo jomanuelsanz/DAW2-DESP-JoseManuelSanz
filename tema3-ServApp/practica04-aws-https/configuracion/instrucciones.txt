@@ -1,0 +1,52 @@
+INSTRUCCIONES Y ANALISIS DEL SCRIPT user-data.sh
+Practica 04 - Jose Manuel Sanz (JMS)
+
+El script se ejecuta como root, de forma automatica, durante el primer arranque
+de la instancia (lo hace cloud-init). Su registro queda en
+/var/log/cloud-init-output.log
+
+#!/bin/bash
+    Indica que el script se interpreta con Bash.
+
+export DEBIAN_FRONTEND=noninteractive
+    Evita que apt haga preguntas interactivas durante la instalacion.
+
+apt update
+    Actualiza el indice de paquetes disponibles de los repositorios de Ubuntu.
+    Es necesario antes de instalar para obtener las versiones actuales.
+
+docker.io
+    Paquete de Ubuntu con Docker (motor de contenedores). Permite construir
+    imagenes y ejecutar contenedores, como el de Flask + Gunicorn.
+
+git
+    Sistema de control de versiones. Permite clonar repositorios en el servidor.
+
+curl
+    Cliente HTTP de linea de comandos. Sirve para probar peticiones web y
+    descargar ficheros.
+
+systemctl enable docker
+    Habilita el servicio Docker para que arranque automaticamente en cada
+    reinicio de la instancia.
+
+systemctl start docker
+    Arranca Docker en este momento, sin esperar a un reinicio.
+
+mkdir -p /opt/practica04
+    Crea el directorio de trabajo de la practica. La opcion -p evita errores si
+    ya existe.
+
+usermod -aG docker ubuntu     (anadido)
+    Anade al usuario ubuntu al grupo docker para poder ejecutar docker sin sudo.
+
+chown ubuntu:ubuntu /opt/practica04     (anadido)
+    Hace propietario del directorio al usuario ubuntu para poder subir ficheros
+    por scp sin permisos de root.
+
+VENTAJAS DE USER DATA
+    - Automatiza la configuracion inicial: sin pasos manuales.
+    - Es reproducible: cada instancia nueva queda igual.
+    - Ahorra tiempo y reduce errores humanos.
+    - Facilita escalar (varias instancias identicas, Auto Scaling).
+    - Es "infraestructura como codigo": el script se versiona en Git.
