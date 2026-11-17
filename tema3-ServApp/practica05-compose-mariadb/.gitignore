@@ -1,0 +1,5 @@
+*.pem
+*.zip
+certs/
+__pycache__/
+*.pyc
