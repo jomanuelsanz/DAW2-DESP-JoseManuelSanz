@@ -1,0 +1,66 @@
+name: practica05
+
+services:
+  mariadb:
+    image: mariadb:11.4
+    container_name: mariadb
+    restart: unless-stopped
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MARIADB_ROOT_PASSWORD: RootJMS05
+      MARIADB_DATABASE: practica05JMS
+      MARIADB_USER: jms_user
+      MARIADB_PASSWORD: JmsPass05
+      TZ: Europe/Madrid
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/datos.sql:/docker-entrypoint-initdb.d/02-datos.sql:ro
+    networks:
+      - red-practica05
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -u root -p$$MARIADB_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  flask:
+    build: ./app
+    image: flask-practica05-jms
+    container_name: flask
+    restart: unless-stopped
+    environment:
+      DB_HOST: mariadb
+      DB_PORT: "3306"
+      DB_NAME: practica05JMS
+      DB_USER: jms_user
+      DB_PASSWORD: JmsPass05
+      TZ: Europe/Madrid
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      - red-practica05
+
+  nginx:
+    image: nginx:stable
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+    depends_on:
+      - flask
+    networks:
+      - red-practica05
+
+networks:
+  red-practica05:
+    driver: bridge
+
+volumes:
+  mariadb_data:
